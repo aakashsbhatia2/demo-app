@@ -8,6 +8,9 @@ export const SCREENS = {
   editRoute: "routes/[id]/edit",
   runRoute: "routes/[id]/run",
   runDetail: "runs/[id]",
+  search: "search",
+  followers: "followers",
+  following: "following",
   signIn: "sign-in",
   signUp: "sign-up",
 } as const;
@@ -16,6 +19,9 @@ export const HREFS = {
   createRoute: "/create-route",
   myRuns: "/runs",
   profile: "/profile",
+  search: "/search",
+  followers: "/followers",
+  following: "/following",
   signIn: "/sign-in",
   signUp: "/sign-up",
   routeDetail: (id: string) => ({ pathname: "/routes/[id]", params: { id } }) as const,
@@ -32,4 +38,8 @@ export const API_ROUTES = {
   runs: "/api/runs",
   run: (id: string) => `/api/runs/${encodeURIComponent(id)}`,
   streetRoute: "/api/street-route",
+  userSearch: "/api/users/search",
+  following: "/api/users/me/following",
+  followers: "/api/users/me/followers",
+  follow: (id: string) => `/api/users/${encodeURIComponent(id)}/follow`,
 } as const;

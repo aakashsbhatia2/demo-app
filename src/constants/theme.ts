@@ -29,3 +29,8 @@ export const radius = {
   md: 12,
   lg: 20,
 };
+
+export const header = {
+  menuButtonWidth: 72,
+  searchBarHeight: 40,
+};

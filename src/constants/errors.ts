@@ -18,6 +18,9 @@ export const API_ERROR_CODES = {
   INVALID_TRACK: "INVALID_TRACK",
   TRACK_TOO_LONG: "TRACK_TOO_LONG",
   BODY_TOO_LARGE: "BODY_TOO_LARGE",
+  SEARCH_QUERY_REQUIRED: "SEARCH_QUERY_REQUIRED",
+  USER_NOT_FOUND: "USER_NOT_FOUND",
+  CANNOT_FOLLOW_SELF: "CANNOT_FOLLOW_SELF",
 } as const;
 
 export type ApiErrorCode = (typeof API_ERROR_CODES)[keyof typeof API_ERROR_CODES];
@@ -33,6 +36,10 @@ export const ERROR_MESSAGES = {
   signUpFailed: "Could not create your account",
   signOutFailed: "Could not sign out",
   passwordsDontMatch: "Passwords don't match",
+  invalidUsername: "Usernames are 3–30 lowercase letters, numbers, _ or .",
+  searchFailed: "Could not search right now",
+  followFailed: "Could not update who you follow",
+  peopleLoadFailed: (reason: string) => `Could not load this list: ${reason}`,
   routesLoadFailed: (reason: string) => `Could not load your routes: ${reason}`,
   routeLoadFailed: (reason: string | null) => `Could not load this route: ${reason}`,
   routeDeleteFailed: "Could not delete this route",

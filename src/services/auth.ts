@@ -17,6 +17,7 @@ export async function signInWithEmail(input: SignInInput): Promise<AuthUser> {
 export async function signUpWithEmail({
   firstName,
   lastName,
+  username,
   email,
   password,
 }: SignUpInput): Promise<AuthUser> {
@@ -24,6 +25,7 @@ export async function signUpWithEmail({
     name: `${firstName} ${lastName}`,
     firstName,
     lastName,
+    username,
     email,
     password,
   });
@@ -36,6 +38,16 @@ export async function signOut() {
   if (error) throw new Error(error.message ?? ERROR_MESSAGES.signOutFailed);
 }
 
-function toAuthUser(user: AuthUser): AuthUser {
-  return { id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email };
+type ServerUser = Omit<AuthUser, "username"> & {
+  username?: string | null;
+};
+
+function toAuthUser(user: ServerUser): AuthUser {
+  return {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    username: user.username ?? "",
+    email: user.email,
+  };
 }

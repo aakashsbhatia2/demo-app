@@ -6,12 +6,14 @@ export type SignInInput = {
 export type SignUpInput = SignInInput & {
   firstName: string;
   lastName: string;
+  username: string;
 };
 
 export type AuthUser = {
   id: string;
   firstName: string;
   lastName: string;
+  username: string;
   email: string;
 };
 

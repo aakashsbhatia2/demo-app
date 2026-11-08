@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 
+import { FollowCounts } from "@/components/profile/follow-counts";
 import { colors, fontSize, spacing } from "@/constants/theme";
 import type { AuthUser } from "@/types/auth";
 
@@ -11,7 +12,9 @@ export function ProfileDetails({ user }: Props) {
   return (
     <View style={styles.container}>
       <ProfileRow label="Name" value={`${user.firstName} ${user.lastName}`} />
+      <ProfileRow label="Username" value={`@${user.username}`} />
       <ProfileRow label="Email" value={user.email} />
+      <FollowCounts />
     </View>
   );
 }

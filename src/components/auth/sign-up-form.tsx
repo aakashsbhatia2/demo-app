@@ -5,17 +5,18 @@ import { AuthSwitchLink } from "@/components/auth/auth-switch-link";
 import { Button } from "@/components/button";
 import { FormError } from "@/components/form-error";
 import { TextField } from "@/components/text-field";
-import { MIN_PASSWORD_LENGTH } from "@/constants/auth";
+import { MAX_USERNAME_LENGTH, MIN_PASSWORD_LENGTH } from "@/constants/auth";
 import { ERROR_MESSAGES } from "@/constants/errors";
 import { HREFS } from "@/constants/routes";
 import { spacing } from "@/constants/theme";
 import { useAsyncAction } from "@/hooks/use-async-action";
 import { useSession } from "@/hooks/use-session";
-import { isFilled, isValidEmail, isValidPassword } from "@/utils/validation";
+import { isFilled, isValidEmail, isValidPassword, isValidUsername } from "@/utils/validation";
 
 export function SignUpForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -25,10 +26,13 @@ export function SignUpForm() {
   const passwordsMatch = password === confirmPassword;
   const confirmError =
     isFilled(confirmPassword) && !passwordsMatch ? ERROR_MESSAGES.passwordsDontMatch : null;
+  const usernameError =
+    isFilled(username) && !isValidUsername(username) ? ERROR_MESSAGES.invalidUsername : null;
 
   const canSubmit =
     isFilled(firstName) &&
     isFilled(lastName) &&
+    isValidUsername(username) &&
     isValidEmail(email) &&
     isValidPassword(password) &&
     passwordsMatch &&
@@ -38,6 +42,7 @@ export function SignUpForm() {
     run({
       firstName: firstName.trim(),
       lastName: lastName.trim(),
+      username,
       email: email.trim(),
       password,
     });
@@ -57,6 +62,18 @@ export function SignUpForm() {
         onChangeText={setLastName}
         autoComplete="family-name"
         textContentType="familyName"
+      />
+      <TextField
+        label="Username"
+        value={username}
+        onChangeText={(text) => setUsername(text.toLowerCase().trim())}
+        error={usernameError}
+        placeholder="e.g. sam_runs"
+        maxLength={MAX_USERNAME_LENGTH}
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoComplete="username-new"
+        textContentType="username"
       />
       <TextField
         label="Email"

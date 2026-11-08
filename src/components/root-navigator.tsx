@@ -20,6 +20,9 @@ export function RootNavigator() {
         <Stack.Screen name={SCREENS.editRoute} options={{ title: "Edit route" }} />
         <Stack.Screen name={SCREENS.runRoute} options={{ title: "Run" }} />
         <Stack.Screen name={SCREENS.runDetail} options={{ title: "Run" }} />
+        <Stack.Screen name={SCREENS.search} options={{ title: "Search" }} />
+        <Stack.Screen name={SCREENS.followers} options={{ title: "Followers" }} />
+        <Stack.Screen name={SCREENS.following} options={{ title: "Following" }} />
       </Stack.Protected>
     </Stack>
   );
