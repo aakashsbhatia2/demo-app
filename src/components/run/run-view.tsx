@@ -4,10 +4,10 @@ import { RouteMap } from "@/components/route-map";
 import { LocationPermissionDialog } from "@/components/run/location-permission-dialog";
 import { RunPanel } from "@/components/run/run-panel";
 import { useRunSession } from "@/hooks/use-run-session";
-import type { SavedRoute } from "@/types/saved-route";
+import type { PlannedRoute } from "@/types/saved-route";
 
 type Props = {
-  route: SavedRoute;
+  route: PlannedRoute;
 };
 
 export function RunView({ route }: Props) {
@@ -20,7 +20,7 @@ export function RunView({ route }: Props) {
         path={route.path}
         center={route.points[0]}
         trail={session.trail}
-        followLocation={session.currentLocation}
+        followUser={session.status === "running" || session.status === "paused"}
       />
       <RunPanel
         status={session.status}

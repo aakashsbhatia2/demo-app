@@ -1,16 +1,16 @@
 import { SplashScreen } from "expo-router";
 import { useEffect } from "react";
 
-import { useSession } from "@/hooks/use-session";
-
 SplashScreen.preventAutoHideAsync();
 
-export function SplashScreenController() {
-  const { isLoading } = useSession();
+type Props = {
+  isReady: boolean;
+};
 
+export function SplashScreenController({ isReady }: Props) {
   useEffect(() => {
-    if (!isLoading) SplashScreen.hide();
-  }, [isLoading]);
+    if (isReady) SplashScreen.hide();
+  }, [isReady]);
 
   return null;
 }

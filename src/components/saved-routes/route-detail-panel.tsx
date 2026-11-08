@@ -9,13 +9,11 @@ import { formatDistance } from "@/utils/distance";
 
 type Props = {
   route: SavedRoute;
-  isDeleting: boolean;
   onStartRun: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  onGroupRun: () => void;
 };
 
-export function RouteDetailPanel({ route, isDeleting, onStartRun, onEdit, onDelete }: Props) {
+export function RouteDetailPanel({ route, onStartRun, onGroupRun }: Props) {
   const insets = useSafeAreaInsets();
 
   return (
@@ -28,22 +26,13 @@ export function RouteDetailPanel({ route, isDeleting, onStartRun, onEdit, onDele
       <Button
         label="Start run"
         onPress={onStartRun}
-        disabled={isDeleting}
         variant="primary"
         style={styles.firstAction}
       />
       <Button
-        label="Edit"
-        onPress={onEdit}
-        disabled={isDeleting}
+        label="Group run"
+        onPress={onGroupRun}
         variant="secondary"
-        style={styles.action}
-      />
-      <Button
-        label={isDeleting ? "Deleting…" : "Delete route"}
-        onPress={onDelete}
-        disabled={isDeleting}
-        variant="danger"
         style={styles.action}
       />
     </View>

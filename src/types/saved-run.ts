@@ -1,4 +1,5 @@
 import type { TrackPoint } from "@/types/run";
+import type { PlannedRoute } from "@/types/saved-route";
 
 export type SaveRunInput = {
   routeId: string;
@@ -21,4 +22,5 @@ export type SavedRunSummary = {
 
 export type SavedRun = SavedRunSummary & {
   track: TrackPoint[][];
+  route: PlannedRoute | null;
 };

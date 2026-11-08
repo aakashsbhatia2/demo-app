@@ -1,34 +1,33 @@
-import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
 
 import { ERROR_MESSAGES } from "@/constants/errors";
 import { deleteRoute } from "@/services/routes";
 
-export function useDeleteRoute(id: string) {
-  const router = useRouter();
-  const [isDeleting, setIsDeleting] = useState(false);
+export function useDeleteRoute(onDeleted: (id: string) => void) {
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  const runDelete = async () => {
-    setIsDeleting(true);
+  const runDelete = async (id: string) => {
+    setDeletingId(id);
     try {
       await deleteRoute(id);
-      router.back();
+      onDeleted(id);
     } catch (error) {
-      setIsDeleting(false);
       Alert.alert(
         ERROR_MESSAGES.routeDeleteFailed,
         error instanceof Error ? error.message : ERROR_MESSAGES.generic,
       );
+    } finally {
+      setDeletingId(null);
     }
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = (id: string) => {
     Alert.alert("Delete this route?", "This can't be undone.", [
       { text: "Cancel", style: "cancel" },
-      { text: "Delete", style: "destructive", onPress: runDelete },
+      { text: "Delete", style: "destructive", onPress: () => runDelete(id) },
     ]);
   };
 
-  return { confirmDelete, isDeleting };
+  return { confirmDelete, deletingId };
 }

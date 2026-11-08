@@ -7,6 +7,7 @@ export const colors = {
   border: "#D9D9D9",
   error: "#D93025",
   trail: "#2563EB",
+  stale: "#9CA3AF",
 };
 
 export const spacing = {

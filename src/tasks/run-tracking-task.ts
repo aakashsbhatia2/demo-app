@@ -2,6 +2,7 @@ import type { LocationObject } from "expo-location";
 import * as TaskManager from "expo-task-manager";
 
 import { MAX_LOCATION_ACCURACY_METERS, RUN_TRACKING_TASK } from "@/constants/run";
+import { shareGroupRunLocation } from "@/services/location-sharing";
 import { runStore } from "@/stores/run-store";
 import type { TrackPoint } from "@/types/run";
 
@@ -19,7 +20,9 @@ TaskManager.defineTask<LocationTaskData>(RUN_TRACKING_TASK, async ({ data, error
     .filter((location) => (location.coords.accuracy ?? Infinity) <= MAX_LOCATION_ACCURACY_METERS)
     .map(toTrackPoint);
 
+  await runStore.restore();
   runStore.addPoints(points);
+  await shareGroupRunLocation();
 });
 
 function toTrackPoint(location: LocationObject): TrackPoint {

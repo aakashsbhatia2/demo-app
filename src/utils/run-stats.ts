@@ -1,5 +1,5 @@
 import { CURRENT_PACE_WINDOW_MS } from "@/constants/run";
-import type { RunState, TrackPoint } from "@/types/run";
+import type { RunState } from "@/types/run";
 import { METERS_PER_MILE, pathDistance } from "@/utils/distance";
 
 const PACE_PLACEHOLDER = "––:––";
@@ -13,14 +13,6 @@ export function runElapsedMs(run: RunState, now: number): number {
 
 export function runDistanceMeters(run: RunState): number {
   return run.segments.reduce((total, segment) => total + pathDistance(segment), 0);
-}
-
-export function lastTrackPoint(run: RunState): TrackPoint | null {
-  for (let i = run.segments.length - 1; i >= 0; i--) {
-    const point = run.segments[i].at(-1);
-    if (point) return point;
-  }
-  return null;
 }
 
 export function currentPaceSecondsPerMile(run: RunState): number | null {

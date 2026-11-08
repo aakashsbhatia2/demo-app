@@ -6,14 +6,12 @@ import { RouteMap } from "@/components/route-map";
 import { RouteDetailPanel } from "@/components/saved-routes/route-detail-panel";
 import { ERROR_MESSAGES } from "@/constants/errors";
 import { HREFS } from "@/constants/routes";
-import { useDeleteRoute } from "@/hooks/use-delete-route";
 import { useSavedRoute } from "@/hooks/use-saved-route";
 
 export default function RouteDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { route, error, isLoading } = useSavedRoute(id);
-  const { confirmDelete, isDeleting } = useDeleteRoute(id);
 
   if (isLoading) {
     return (
@@ -33,10 +31,8 @@ export default function RouteDetailScreen() {
       <RouteMap waypoints={route.points} path={route.path} center={route.points[0]} />
       <RouteDetailPanel
         route={route}
-        isDeleting={isDeleting}
         onStartRun={() => router.push(HREFS.runRoute(route.id))}
-        onEdit={() => router.push(HREFS.editRoute(route.id))}
-        onDelete={confirmDelete}
+        onGroupRun={() => router.push(HREFS.newGroupRun(route.id))}
       />
     </View>
   );

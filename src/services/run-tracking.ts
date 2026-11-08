@@ -25,14 +25,19 @@ export async function requestTrackingPermission(): Promise<TrackingPermission> {
   return "granted";
 }
 
-export async function startRun(routeId: string) {
-  runStore.start(routeId, Date.now());
+export async function startRun(routeId: string, groupRunId: string | null = null) {
+  runStore.start(routeId, groupRunId, Date.now());
   try {
     await startLocationUpdates();
   } catch (error) {
     runStore.reset();
     throw error;
   }
+}
+
+export async function resumeSavedRun() {
+  await runStore.restore();
+  if (runStore.getState().status === "running") await startLocationUpdates();
 }
 
 export async function pauseRun() {
@@ -69,7 +74,7 @@ async function startLocationUpdates() {
       notificationTitle: RUN_NOTIFICATION.title,
       notificationBody: RUN_NOTIFICATION.body,
       notificationColor: RUN_NOTIFICATION.color,
-      killServiceOnDestroy: true,
+      killServiceOnDestroy: false,
     },
   });
 }

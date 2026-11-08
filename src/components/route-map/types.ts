@@ -1,3 +1,4 @@
+import type { MapRunner } from "@/types/group-run";
 import type { LatLng } from "@/types/lat-lng";
 
 export type RouteMapProps = {
@@ -5,6 +6,7 @@ export type RouteMapProps = {
   path: LatLng[];
   center?: LatLng;
   trail?: LatLng[][];
-  followLocation?: LatLng | null;
+  runners?: MapRunner[];
+  followUser?: boolean;
   onMapPress?: (point: LatLng) => void;
 };

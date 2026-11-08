@@ -16,3 +16,8 @@ export type SavedRoute = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type PlannedRoute = Pick<
+  SavedRoute,
+  "id" | "name" | "points" | "path" | "distanceMeters" | "isLoop"
+>;

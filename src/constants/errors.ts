@@ -21,6 +21,15 @@ export const API_ERROR_CODES = {
   SEARCH_QUERY_REQUIRED: "SEARCH_QUERY_REQUIRED",
   USER_NOT_FOUND: "USER_NOT_FOUND",
   CANNOT_FOLLOW_SELF: "CANNOT_FOLLOW_SELF",
+  GROUP_RUN_NOT_FOUND: "GROUP_RUN_NOT_FOUND",
+  INVALID_INVITEES: "INVALID_INVITEES",
+  GROUP_RUN_HOST_ONLY: "GROUP_RUN_HOST_ONLY",
+  HOST_CANNOT_DECLINE: "HOST_CANNOT_DECLINE",
+  GROUP_RUN_ALREADY_STARTED: "GROUP_RUN_ALREADY_STARTED",
+  GROUP_RUN_FINISHED: "GROUP_RUN_FINISHED",
+  GROUP_RUN_NOT_RUNNING: "GROUP_RUN_NOT_RUNNING",
+  GROUP_RUN_NOT_JOINED: "GROUP_RUN_NOT_JOINED",
+  INVALID_LOCATION: "INVALID_LOCATION",
 } as const;
 
 export type ApiErrorCode = (typeof API_ERROR_CODES)[keyof typeof API_ERROR_CODES];
@@ -47,10 +56,15 @@ export const ERROR_MESSAGES = {
   runSaveFailed: "Could not save your run",
   runsLoadFailed: (reason: string) => `Could not load your runs: ${reason}`,
   runLoadFailed: (reason: string | null) => `Could not load this run: ${reason}`,
+  groupRunLoadFailed: (reason: string | null) => `Could not load this group run: ${reason}`,
+  invitesLoadFailed: (reason: string) => `Could not load your invites: ${reason}`,
+  groupRunCreateFailed: "Could not create the group run",
+  groupRunActionFailed: "Could not update the group run",
+  liveConnectionFailed: "Live updates are unavailable right now",
   locationDenied: "Location access is off. Turn it on in Settings to track runs.",
   backgroundLocationDenied:
     'To track runs with the screen off, open Settings and set location to "Allow all the time".',
-  mapsAndroidOnly: "Maps are only available on Android for now.",
-  mapsKeyMissing:
-    "Map unavailable: add GOOGLE_MAPS_ANDROID_API_KEY to .env.local, then rebuild the app.",
+  mapsNativeOnly: "Maps are only available in the mobile app.",
+  mapboxTokenMissing:
+    "Map unavailable: add EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN to .env.local, then restart the app.",
 } as const;

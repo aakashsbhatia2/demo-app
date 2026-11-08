@@ -15,10 +15,9 @@ import {
   startRun,
 } from "@/services/run-tracking";
 import { saveRun } from "@/services/runs";
-import type { SavedRoute } from "@/types/saved-route";
+import type { PlannedRoute } from "@/types/saved-route";
 import {
   currentPaceSecondsPerMile,
-  lastTrackPoint,
   paceSecondsPerMile,
   runDistanceMeters,
   runElapsedMs,
@@ -26,10 +25,10 @@ import {
 
 export type PermissionStep = "hidden" | "explain" | "location-denied" | "background-denied";
 
-export function useRunSession(route: SavedRoute) {
+export function useRunSession(route: PlannedRoute, groupRunId: string | null = null) {
   const router = useRouter();
   const run = useRun();
-  const isThisRoute = run.routeId === route.id;
+  const isThisRoute = run.routeId === route.id && run.groupRunId === groupRunId;
   const status = isThisRoute ? run.status : "idle";
   const isFinished = status === "finished";
   const hasUnsavedRun = status === "running" || status === "paused" || isFinished;
@@ -85,7 +84,7 @@ export function useRunSession(route: SavedRoute) {
 
   const begin = perform(async () => {
     if (await hasTrackingPermission()) {
-      await startRun(route.id);
+      await startRun(route.id, groupRunId);
     } else {
       setPermissionStep("explain");
     }
@@ -98,7 +97,7 @@ export function useRunSession(route: SavedRoute) {
       return;
     }
     setPermissionStep("hidden");
-    await startRun(route.id);
+    await startRun(route.id, groupRunId);
   }, ERROR_MESSAGES.runStartFailed);
 
   const save = perform(async () => {
@@ -127,7 +126,6 @@ export function useRunSession(route: SavedRoute) {
     permissionStep,
     closePermission: () => setPermissionStep("hidden"),
     trail: isThisRoute ? run.segments : [],
-    currentLocation: isThisRoute ? lastTrackPoint(run) : null,
     stats: {
       distanceMeters,
       routeMeters: route.distanceMeters,

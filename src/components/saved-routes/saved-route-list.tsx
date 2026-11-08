@@ -9,9 +9,11 @@ type Props = {
   routes: SavedRoute[];
   isLoading: boolean;
   error: string | null;
+  deletingId: string | null;
+  onDelete: (id: string) => void;
 };
 
-export function SavedRouteList({ routes, isLoading, error }: Props) {
+export function SavedRouteList({ routes, isLoading, error, deletingId, onDelete }: Props) {
   if (routes.length === 0) {
     if (isLoading) {
       return (
@@ -28,7 +30,9 @@ export function SavedRouteList({ routes, isLoading, error }: Props) {
     <FlatList
       data={routes}
       keyExtractor={(route) => route.id}
-      renderItem={({ item }) => <SavedRouteRow route={item} />}
+      renderItem={({ item }) => (
+        <SavedRouteRow route={item} isDeleting={deletingId === item.id} onDelete={onDelete} />
+      )}
       style={styles.list}
     />
   );

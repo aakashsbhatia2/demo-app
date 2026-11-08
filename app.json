@@ -37,19 +37,14 @@
         }
       ],
       [
-        "expo-maps",
-        {
-          "requestLocationPermission": true,
-          "locationPermission": "Allow $(PRODUCT_NAME) to use your location to plan running routes near you."
-        }
-      ],
-      [
         "expo-location",
         {
+          "locationWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location to plan running routes near you.",
           "isAndroidBackgroundLocationEnabled": true,
           "isAndroidForegroundServiceEnabled": true
         }
-      ]
+      ],
+      "@rnmapbox/maps"
     ],
     "experiments": {
       "typedRoutes": true,

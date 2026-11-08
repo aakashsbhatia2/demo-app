@@ -10,7 +10,7 @@ An Expo app for planning running routes. Tap the map to build a route, close it 
    npm install
    ```
 
-2. Add your Google Maps key for Android. Copy `.env.example` to `.env.local` and fill in `GOOGLE_MAPS_ANDROID_API_KEY`. Git ignores `.env.local`, so the key stays off GitHub.
+2. Copy `.env.example` to `.env.local` and fill in your server address (`EXPO_PUBLIC_API_URL`) and Mapbox public token (`EXPO_PUBLIC_MAPBOX_ACCESS_TOKEN`). Git ignores `.env.local`.
 
 3. Build and run the app. This uses a development build, not Expo Go:
 
@@ -18,7 +18,7 @@ An Expo app for planning running routes. Tap the map to build a route, close it 
    npm run android   # or: npm run ios (needs Xcode)
    ```
 
-After the first build, `npx expo start` is enough. Rebuild when you add a library with native code or change `app.json` / `app.config.ts`:
+After the first build, `npx expo start` is enough. Rebuild when you add a library with native code or change `app.json`:
 
 ```bash
 npx expo prebuild --clean
@@ -31,7 +31,6 @@ npm run android
 - `src/components/` – reusable UI, such as the route map
 - `src/hooks/` – reusable logic, such as finding the user's location
 - `src/utils/` – plain helpers, such as distance maths
-- `app.config.ts` – adds secrets from `.env.local` to the settings in `app.json`
 
 ## Checks
 

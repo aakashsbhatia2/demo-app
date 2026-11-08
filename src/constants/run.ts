@@ -15,3 +15,5 @@ export const RUN_NOTIFICATION = {
   body: "Tracking your run.",
   color: "#FF5A1F",
 };
+
+export const RUN_PROGRESS_STORAGE_KEY = "run-progress";

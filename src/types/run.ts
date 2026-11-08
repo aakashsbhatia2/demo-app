@@ -9,6 +9,7 @@ export type TrackPoint = LatLng & {
 export type RunState = {
   status: RunStatus;
   routeId: string | null;
+  groupRunId: string | null;
   startedAt: number | null;
   finishedAt: number | null;
   pausedAt: number | null;

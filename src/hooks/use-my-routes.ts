@@ -32,5 +32,9 @@ export function useMyRoutes() {
     }, []),
   );
 
-  return { routes, isLoading, error };
+  const removeRoute = (id: string) => {
+    setRoutes((current) => current.filter((route) => route.id !== id));
+  };
+
+  return { routes, isLoading, error, removeRoute };
 }

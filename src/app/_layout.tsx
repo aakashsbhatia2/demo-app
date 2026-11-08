@@ -1,18 +1,26 @@
 import "@/tasks/run-tracking-task";
 
+import { StyleSheet } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 
 import { RootNavigator } from "@/components/root-navigator";
-import { SplashScreenController } from "@/components/splash-screen-controller";
 import { SessionProvider } from "@/providers/session-provider";
 
 export default function RootLayout() {
   return (
-    <KeyboardProvider>
-      <SessionProvider>
-        <SplashScreenController />
-        <RootNavigator />
-      </SessionProvider>
-    </KeyboardProvider>
+    <GestureHandlerRootView style={styles.root}>
+      <KeyboardProvider>
+        <SessionProvider>
+          <RootNavigator />
+        </SessionProvider>
+      </KeyboardProvider>
+    </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+});
